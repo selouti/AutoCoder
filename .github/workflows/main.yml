@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: checkout
+        uses: actions/checkout@v6
       - name: Print Issue Information
      # number, title, body, assignees, and labels 
         run: |
