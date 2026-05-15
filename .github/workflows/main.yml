@@ -1,13 +1,13 @@
+name: say_hello
 on: [push]
-
 jobs:
-  access_issue_info:
+  job_name: 
     runs-on: ubuntu-latest
-
     steps:
       - name: checkout
         uses: actions/checkout@v6
-      - name: Print Issue Information
+      - name: echo
+        run: echo "Hello, world"
       on:
         issues:
           types:
