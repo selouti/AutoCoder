@@ -1,5 +1,5 @@
 name: say_hello
-on: [push]
+on: 
   issues:
     types: [opened, reopened]
 jobs:
