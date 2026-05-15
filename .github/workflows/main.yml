@@ -1,11 +1,25 @@
-name: say_hello
-on: [push]
+on:
+  issues:
+    types:
+      - opened
+      - reopened
 jobs:
-  job_name: 
+  access_issue_info:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
-        uses: actions/checkout@v6
-      - name: echo
-        run: echo "Hello, world"
+      - name: Print Issue Information
+     # number, title, body, assignees, and labels 
+        run: |
+            echo "Issue Number: ${ISSUE_NUMBER}"
+            Issue Number: ${{ github.event.issue.number }}
+            echo "Issue Title: ${ISSUE_TITLE}"
+            Issue Number: ${{ github.event.issue.title }}
+            echo "Issue Body: ${ISSUE_BODY}
+            Issue Body: ${{ github.event.issue.body }}
+            echo "Issue Assignees: ${ISSUE_ASSIGNEES}
+            Issue Assignees: ${{ join(github.event.issue.assignees.*.login, ', ') }}
+            echo "Issue Labels: ${ISSUE_LABELS}
+            Issue Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}
+
       
