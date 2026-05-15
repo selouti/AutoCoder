@@ -1,8 +1,5 @@
-on:
-  issues:
-    types:
-      - opened
-      - reopened
+on: [push]
+
 jobs:
   access_issue_info:
     runs-on: ubuntu-latest
