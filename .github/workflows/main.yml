@@ -1,5 +1,7 @@
 name: say_hello
-on: [push, opened, reopened]
+on: [push]
+  issues:
+    types: [opened, reopened]
 jobs:
   job_name: 
     runs-on: ubuntu-latest
