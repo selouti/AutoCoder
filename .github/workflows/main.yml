@@ -1,5 +1,5 @@
 name: say_hello
-on: [push]
+on: [push, opened, reopened]
 jobs:
   job_name: 
     runs-on: ubuntu-latest
@@ -8,11 +8,7 @@ jobs:
         uses: actions/checkout@v6
       - name: echo
         run: echo "Hello, world"
-      on:
-        issues:
-          types:
-            - opened
-            - reopened
+      - name: logs
      # number, title, body, assignees, and labels 
         run: |
             echo "Issue Number: ${ISSUE_NUMBER}"
