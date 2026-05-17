@@ -24,6 +24,7 @@ jobs:
             ISSUE_BODY: ${{ github.event.issue.body }}
             ISSUE_ASSIGNEES: ${{ join(github.event.issue.assignees.*.login, ', ') }}
             ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
+            
       - name: Generate Code with ChatGPT
         if: github.event.issue.labels == 'autocoder-bot'
         id: generate_code
@@ -34,9 +35,26 @@ jobs:
             OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         run:
             chmod +x scripts/script.sh
-            scripts/script.sh ${GITHUB_TOKEN} ${REPOSITORY} ${ISSUE_NUMBER} ${OPENAI_API_KEY} > autocoder-artifact
-            # action to upload an artifact
-            # params:
-              # inputs
-              # inputs
-            ls
+            mkdir autocoder-artifact
+            scripts/script.sh ${GITHUB_TOKEN} ${REPOSITORY} ${ISSUE_NUMBER} ${OPENAI_API_KEY} >   autocoder-artifact/autocoder-artifact
+            
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: autocoder-artifact
+          path: scripts/autocoder-artifact
+          if-no-files-found: warn
+          retention-days: 3
+          compression-level : 6 
+          overwrite: true
+          include-hidden-files: false
+          archive: true
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: autocoder-artifact
+          path: autocoder-artifact/autocoder-artifact
+          
+      - name: Display Generated Code using the ls command
+        run: ls 
