@@ -24,3 +24,13 @@ jobs:
             Issue Body: ${{ github.event.issue.body }}
             Issue Assignees: ${{ join(github.event.issue.assignees.*.login, ', ') }}
             Issue Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}
+      - name: Generate Code with ChatGPT
+        if: github.event.issue.labels == 'autocoder-bot'
+        id: generate_code
+        env:
+            GitHub Token: GITHUB_TOKEN="$1"
+            Repository: REPOSITORY="$2"
+            Issue Number: ${{ github.event.issue.number }}
+            OpenAI Key: OPENAI_API_KEY="$4"
+        run:
+
