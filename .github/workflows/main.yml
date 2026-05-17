@@ -35,8 +35,7 @@ jobs:
             OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         run:
             chmod +x scripts/script.sh
-            mkdir autocoder-artifact
-            ./scripts/script.sh ${GITHUB_TOKEN} ${REPOSITORY} ${ISSUE_NUMBER} ${OPENAI_API_KEY} >   autocoder-artifact/autocoder-artifact
+            ./scripts/script.sh ${GITHUB_TOKEN} ${REPOSITORY} ${ISSUE_NUMBER} ${OPENAI_API_KEY} 
             
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
