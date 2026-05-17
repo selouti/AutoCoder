@@ -4,7 +4,7 @@ on:
     types: [opened, reopened, labeled]
 jobs:
   job_name: 
-    if: ${{ github.event.label.name == 'autocoder-bot'}}
+    if: github.event.label.name == 'autocoder-bot'
     runs-on: ubuntu-latest
     steps:
       - name: checkout
