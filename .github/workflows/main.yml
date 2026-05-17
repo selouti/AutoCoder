@@ -4,6 +4,7 @@ on:
     types: [opened, reopened, labeled]
 jobs:
   job_name: 
+    if: ${{ github.event.label.name == 'autocoder-bot'}}
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -26,7 +27,6 @@ jobs:
             ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
             
       - name: Generate Code with ChatGPT
-        if: ${{ github.event.label.name == 'autocoder-bot'}}
         id: generate_code
         env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
