@@ -19,18 +19,24 @@ jobs:
             echo "Issue Assignees: ${ISSUE_ASSIGNEES}"
             echo "Issue Labels: ${ISSUE_LABELS}"
         env:
-            Issue Number: ${{ github.event.issue.number }}
-            Issue Title: ${{ github.event.issue.title }}
-            Issue Body: ${{ github.event.issue.body }}
-            Issue Assignees: ${{ join(github.event.issue.assignees.*.login, ', ') }}
-            Issue Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}
+            ISSUE_NUMBER: ${{ github.event.issue.number }}
+            ISSUE_TITLE: ${{ github.event.issue.title }}
+            ISSUE_BODY: ${{ github.event.issue.body }}
+            ISSUE_ASSIGNEES: ${{ join(github.event.issue.assignees.*.login, ', ') }}
+            ISSUE_LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
       - name: Generate Code with ChatGPT
         if: github.event.issue.labels == 'autocoder-bot'
         id: generate_code
         env:
-            GitHub Token: GITHUB_TOKEN="$1"
-            Repository: REPOSITORY="$2"
-            Issue Number: ${{ github.event.issue.number }}
-            OpenAI Key: OPENAI_API_KEY="$4"
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            REPOSITORY: ${{github.repository}}
+            ISSUE_NUMBER: ${{ github.event.issue.number }}
+            OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
         run:
-
+            chmod +x scripts/script.sh
+            scripts/script.sh ${GITHUB_TOKEN} ${REPOSITORY} ${ISSUE_NUMBER} ${OPENAI_API_KEY} > autocoder-artifact
+            # action to upload an artifact
+            # params:
+              # inputs
+              # inputs
+            ls
